@@ -16,11 +16,11 @@ public class RefreshTokenRepository : Repository<RefreshToken, RefreshTokenId>, 
 
     public async Task<RefreshToken?> GetByTokenAsync(string token)
     {
-        return await _context.RefreshTokens.FirstOrDefaultAsync(rt => rt.Token == token);
+        return await _context.RefreshTokens.FirstOrDefaultAsync(rt => rt.Token == token && rt.ExpiresAt > DateTime.UtcNow);
     }
 
     public async Task<IEnumerable<RefreshToken>> GetByUserIdAsync(UserId userId)
     {
-        return await _context.RefreshTokens.Where(rt => rt.UserId == userId).ToListAsync();
+        return await _context.RefreshTokens.Where(rt => rt.UserId == userId && rt.ExpiresAt > DateTime.UtcNow).ToListAsync();
     }
 }

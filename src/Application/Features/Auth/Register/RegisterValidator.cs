@@ -18,6 +18,7 @@ public class RegisterValidator : AbstractValidator<RegisterCommand>
             .NotEmpty().WithMessage("Password.Required")
             .MinimumLength(8).WithMessage("Password.TooShort")
             .Matches(@"[a-z]").WithMessage("Password.NeedsLowercase")
+            .Matches(@"[A-Z]").WithMessage("Password.NeedsUppercase")
             .Matches(@"[0-9]").WithMessage("Password.NeedsNumber")
             .Matches(@"[!@#$%^&*()-+]").WithMessage("Password.NeedsSpecialCharacter");
     }

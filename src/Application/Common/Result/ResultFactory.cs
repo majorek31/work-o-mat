@@ -9,7 +9,7 @@ public sealed class ResultFactory<T> : IResultFactory<T>
         var valueType = resultType.GetGenericArguments().FirstOrDefault()!;
         var method = typeof(Result<>)
             .MakeGenericType(valueType)
-            .GetMethod(nameof(Result<T>.Failure))!;
+            .GetMethod(nameof(Result<T>.Failure), [typeof(List<Error>)])!;
         return (T)method.Invoke(null, [errors])!;
     }
 

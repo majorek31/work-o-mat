@@ -4,7 +4,7 @@ namespace WorkOMat.WebApi.Extensions;
 
 public static class ResultExtensions
 {
-    public static Microsoft.AspNetCore.Http.IResult ToIResult<T>(this Result<T> result)
+    public static Microsoft.AspNetCore.Http.IResult ToHttpResult<T>(this Result<T> result)
     {
         if (result.IsSuccess)
         {
@@ -21,8 +21,7 @@ public static class ResultExtensions
                          errors.Any(e => e.Kind == ErrorKind.Conflict) ? StatusCodes.Status409Conflict :
                          StatusCodes.Status500InternalServerError;
         
-        var groupedErrors = errors.GroupBy(e => e.Kind)
-            .ToDictionary(g => g.Key.ToString(), g => g.Select(e => e.Code).ToList());
+        var groupedErrors = GroupErrorsByCode(errors);
         
         return Results.Problem(
             statusCode: statusCode,
@@ -32,5 +31,17 @@ public static class ResultExtensions
             }
         );
 
+    }
+
+    private static Dictionary<string, List<object?>> GroupErrorsByCode(List<Error> errors)
+    {
+        var groupedErrors = errors
+            .GroupBy(e => e.Code.Split('.').First() ?? "Unknown")
+            .ToDictionary(
+                g => g.Key,
+                g => g.Select(e => (object?)new { Code = e.Code, Message = e.Message }).ToList()
+            );
+
+        return groupedErrors;
     }
 }

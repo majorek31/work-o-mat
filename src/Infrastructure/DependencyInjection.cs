@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WorkOMat.Application.Common.Interfaces;
 using WorkOMat.Application.Common.Repositories;
+using WorkOMat.Application.Common.Services;
 using WorkOMat.Infrastructure.Identity;
 using WorkOMat.Infrastructure.Implementations;
 using WorkOMat.Infrastructure.Persistance;
@@ -45,11 +46,13 @@ public static class DependencyInjection
             
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IIdentityService, IdentityService>();
-
+        
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
 
         services.AddScoped(typeof(Repository<,>));
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         return services;
     }
 }

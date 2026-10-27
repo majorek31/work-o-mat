@@ -14,12 +14,12 @@ public class RefreshTokenRepository : Repository<RefreshToken, RefreshTokenId>, 
         _context = context;
     }
 
-    public async Task<RefreshToken?> GetByTokenAsync(string token)
+    public async Task<RefreshToken?> GetByTokenAsync(string token, CancellationToken cancellationToken = default)
     {
-        return await _context.RefreshTokens.FirstOrDefaultAsync(rt => rt.Token == token && rt.ExpiresAt > DateTime.UtcNow);
+        return await _context.RefreshTokens.FirstOrDefaultAsync(rt => rt.Token == token && rt.ExpiresAt > DateTime.UtcNow, cancellationToken);
     }
 
-    public async Task<IEnumerable<RefreshToken>> GetByUserIdAsync(UserId userId)
+    public async Task<IEnumerable<RefreshToken>> GetByUserIdAsync(UserId userId, CancellationToken cancellationToken = default)
     {
         return await _context.RefreshTokens.Where(rt => rt.UserId == userId && rt.ExpiresAt > DateTime.UtcNow).ToListAsync();
     }

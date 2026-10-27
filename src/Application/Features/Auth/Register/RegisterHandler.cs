@@ -23,6 +23,6 @@ public class RegisterHandler : IRequestHandler<RegisterCommand, Result<Unit>>
         {
             return Result<Unit>.Failure(result.Errors ?? new List<Error> { new Error(ErrorKind.InternalServerError, "Error.Unexpected") });
         }
-        return Result<Unit>.Success(Unit.Value);        
+        return Result<Unit>.Success(Unit.Value);
     }
 }

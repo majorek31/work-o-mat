@@ -14,7 +14,7 @@ public class LoginEndpoint : Endpoint
             async (Application.Features.Auth.Login.LoginRequest request, IMediator mediator) =>
         {
             var result = await mediator.Send(request);
-            return result.IsSuccess ? Results.Ok(result.Value) : result.ToIResult();
+            return result.IsSuccess ? Results.Ok(result.Value) : result.ToHttpResult();
         }),
         "Login",
         new[] { "Auth" },

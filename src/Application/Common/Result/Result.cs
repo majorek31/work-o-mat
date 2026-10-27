@@ -16,4 +16,5 @@ public class Result<T> : IResult
     public static Result<T> Success(T value) => new Result<T>(true, value, null);
 
     public static Result<T> Failure(List<Error> errors) => new Result<T>(false, default, errors);
+    public static Result<T> Failure(Error error) => new Result<T>(false, default, new List<Error> { error });
 }

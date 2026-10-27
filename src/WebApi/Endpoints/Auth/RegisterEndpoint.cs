@@ -14,7 +14,7 @@ public sealed class RegisterEndpoint : Endpoint
             async (RegisterCommand command, IMediator mediator) =>
         {
             var result = await mediator.Send(command);
-            return result.IsSuccess ? Results.Created() : result.ToIResult();
+            return result.IsSuccess ? Results.Created() : result.ToHttpResult();
         }),
         "Register",
         new[] { "Auth" },

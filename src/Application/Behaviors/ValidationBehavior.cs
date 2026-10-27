@@ -30,7 +30,7 @@ public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
 
         if (failures.Count != 0)
         {
-            var errors = failures.Select(f => new Error(ErrorKind.Validation, f.ErrorMessage)).ToList();
+            var errors = failures.Select(f => new Error(ErrorKind.Validation, f.ErrorCode, f.ErrorMessage)).ToList();
             var result = _resultFactory.Failure(errors);
             return result;
         }

@@ -6,7 +6,7 @@ namespace WorkOMat.Infrastructure.Persistance.Repositories;
 
 public class Repository<T, TId> : IRepository<T> where T : Entity<TId>
 {
-    private readonly AppDbContext _context;
+    protected readonly AppDbContext _context;
     private readonly DbSet<T> _dbSet;
 
     public Repository(AppDbContext context)

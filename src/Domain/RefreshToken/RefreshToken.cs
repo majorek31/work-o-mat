@@ -16,6 +16,10 @@ public class RefreshToken : AggregateRoot<RefreshTokenId>
         UserId = userId;
     }
 
-    // Add overload conversion to Entity<RefreshTokenId>.
+    public void UpdateToken(string newToken, DateTime newExpiresAt)
+    {
+        Token = newToken;
+        ExpiresAt = newExpiresAt;
+    }
 
 }

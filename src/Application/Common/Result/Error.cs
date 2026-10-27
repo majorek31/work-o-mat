@@ -26,10 +26,12 @@ public class Error
 {
     public ErrorKind Kind { get; init; }
     public string Code { get; init; }
+    public string? Message { get; init; }
 
-    public Error(ErrorKind kind, string code)
+    public Error(ErrorKind kind, string code, string? message = null)
     {
         Kind = kind;
         Code = code;
+        Message = message;
     }
 }
